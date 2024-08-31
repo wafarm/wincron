@@ -5,7 +5,7 @@ use std::iter::Peekable;
 use std::path::PathBuf;
 use std::str::Chars;
 
-pub fn read_u8(iter: &mut Peekable<Chars>) -> Option<u8> {
+fn read_u8(iter: &mut Peekable<Chars>) -> Option<u8> {
     let mut chars = Vec::with_capacity(4);
     while let Some(c) = iter.peek() {
         if c.is_ascii_digit() {
@@ -22,7 +22,7 @@ pub fn read_u8(iter: &mut Peekable<Chars>) -> Option<u8> {
     }
 }
 
-pub fn skip_whitespaces(iter: &mut Peekable<Chars>) {
+fn skip_whitespaces(iter: &mut Peekable<Chars>) {
     while let Some(c) = iter.peek() {
         if *c == ' ' || *c == '\t' {
             iter.next();
@@ -32,7 +32,7 @@ pub fn skip_whitespaces(iter: &mut Peekable<Chars>) {
     }
 }
 
-pub fn next_part(iter: &mut Peekable<Chars>) -> String {
+fn next_part(iter: &mut Peekable<Chars>) -> String {
     skip_whitespaces(iter);
 
     let mut res = Vec::new();
