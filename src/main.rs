@@ -1,3 +1,5 @@
+#![cfg_attr(windows, windows_subsystem = "windows")]
+
 use std::process::Command;
 use std::sync::{Arc, Mutex};
 use std::thread;
