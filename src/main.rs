@@ -51,7 +51,15 @@ fn main() {
                 let command = x.command().to_owned();
                 thread::spawn(move || {
                     #[cfg(windows)]
-                    Command::new("cmd").args(["/c", &command]).spawn().unwrap();
+                    {
+                        use std::os::windows::process::CommandExt;
+
+                        const DETACHED_PROCESS: u32 = 0x00000008;
+                        Command::new("cmd")
+                            .args(["/c", &command])
+                            .creation_flags(DETACHED_PROCESS)
+                            .spawn().unwrap();
+                    }
                     #[cfg(unix)]
                     Command::new("sh").args(["-c", &command]).spawn().unwrap();
                 });
